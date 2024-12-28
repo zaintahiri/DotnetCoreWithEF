@@ -1,0 +1,53 @@
+﻿@model BookModel;
+
+<form method="post" asp-controller="book" asp-action="addbook">
+    @section title {
+        <h1 class="text-primary">Add Book</h1>
+        <hr />
+    }
+    @if (ViewBag.IsSuccess && ViewBag.Id>0)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Book</strong> has been inserted successfully.
+            Click <a asp-action="BookDetails" asp-controller="book" asp-route-id="@ViewBag.Id">here</a> to view details
+            <button type="button" class="close float-end" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    <div class="form-group  pb-3">
+        <label asp-for="Titile" class="form-label col-md-2"></label>
+        <input type="text" asp-for="Titile" class="form-control col-md-5" />
+        <span class="col-md-4"></span>
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="Author" class="form-label col-md-2"></label>
+        <input type="text" asp-for="Author" class="form-control col-md-5" />
+        <span class="col-md-4"></span>
+    </div>
+
+    <div class="form-group pb-3">
+        <label asp-for="Description" class="form-label col-md-2"></label>
+        <textarea asp-for="Description" class="form-control col-md-5"></textarea>
+        <span class="col-md-4"></span>
+    </div>
+
+    <div class="form-group pb-3">
+        <label asp-for="TotalPages" class="form-label col-md-2"></label>
+        <input type="number" asp-for="TotalPages" class="form-control col-md-5" />
+        <span class="col-md-4"></span>
+    </div>
+
+    @* <div class="form-group">
+        <label asp-for="Language" class="form-label col-md-2"></label>
+        <input type="text" asp-for="Language" class="form-control col-md-5" />
+        <span class="col-md-4"></span>
+    </div> *@
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+   
+   
+</form>

@@ -1,0 +1,25 @@
+﻿@model BookModel;
+@section title {
+    <h1 class="text-primary">Book Details</h1>
+    <hr />
+}
+
+<div class="row offset-2">
+    <div class="col-md-4">
+        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg">
+            <image href="~/lib/images/zain.jpg" width="100%" height="100%" />
+        </svg>
+     </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Titile</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@Model.Author</h6>
+                <p class="card-text">@Model.Description</p>
+                <a asp-controller="home" asp-action="index" class="btn btn-primary">home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
