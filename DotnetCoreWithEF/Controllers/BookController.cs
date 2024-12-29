@@ -36,7 +36,7 @@ namespace DotnetCoreWithEF.Controllers
         {
             var model = new BookModel
             {
-                Language = "Sindhi"
+                //Language = "Sindhi"
             };
             ViewBag.IsSuccess = isSuccess;
             ViewBag.Id=id;
@@ -45,8 +45,36 @@ namespace DotnetCoreWithEF.Controllers
             //    "English","Urdu","Sindhi"
             //};
 
+            //1-way
             //ViewBag.Lanuages = new SelectList(new List<string> { "Sindhi", "English", "Urdu" });
-            ViewBag.Lanuages=new SelectList(GetLanguages(), "Id", "Language");
+
+            //2-way
+            //ViewBag.Lanuages=new SelectList(GetLanguages(), "Id", "Language");
+
+            //3-way
+            //ViewBag.Lanuages = new List<SelectListItem>()
+            //{
+            //    new SelectListItem(){ Text="English",Value="1"},
+            //    new SelectListItem(){ Text="Urdu",Value="2",Disabled=true},
+            //    new SelectListItem(){ Text="Sindhi",Value="3",Selected=true},
+            //    new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true},
+            //};
+
+            //4-way
+            var group1 = new SelectListGroup { Name="Group-1"};
+            var group2 = new SelectListGroup { Name = "Group-2",Disabled=true};
+            var group3 = new SelectListGroup { Name = "Group-3" };
+            ViewBag.Lanuages = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text="English",Value="1",Group=group1},
+                new SelectListItem(){ Text="Urdu",Value="2",Group=group2},
+                new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
+                new SelectListItem(){ Text="Siraiki",Value="4",Group=group2},
+                new SelectListItem(){ Text="Balouchi",Value="5",Group=group2},
+                new SelectListItem(){ Text="Punjabi",Value="6",Group=group3},
+                new SelectListItem(){ Text="Pashto",Value="7",Group=group3},
+                new SelectListItem(){ Text="Kashmiri",Value="8",Group=group3},
+            };
             return View(model);
         }
 
@@ -68,7 +96,29 @@ namespace DotnetCoreWithEF.Controllers
             //{
             //    "English","Urdu","Sindhi"
             //};
-            ViewBag.Lanuages = new SelectList(GetLanguages(), "Id", "Language");
+            //ViewBag.Lanuages = new SelectList(GetLanguages(), "Id", "Language");
+            //ViewBag.Lanuages = new List<SelectListItem>()
+            //{
+            //    new SelectListItem(){ Text="English",Value="1"},
+            //    new SelectListItem(){ Text="Urdu",Value="2",Disabled=true},
+            //    new SelectListItem(){ Text="Sindhi",Value="3",Selected=true},
+            //    new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true},
+            //};
+
+            var group1 = new SelectListGroup { Name = "Group-1" };
+            var group2 = new SelectListGroup { Name = "Group-2" };
+            var group3 = new SelectListGroup { Name = "Group-3" };
+            ViewBag.Lanuages = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text="English",Value="1",Group=group1},
+                new SelectListItem(){ Text="Urdu",Value="2",Disabled=true,Group=group2},
+                new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
+                new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true,Group=group2},
+                new SelectListItem(){ Text="Balouchi",Value="5",Selected=true,Group=group2},
+                new SelectListItem(){ Text="Punjabi",Value="6",Disabled=true,Group=group3},
+                new SelectListItem(){ Text="Pashto",Value="7",Selected=true,Group=group3},
+                new SelectListItem(){ Text="Kashmiri",Value="8",Disabled=true,Group=group3},
+            };
             return View();
         }
 

@@ -19,6 +19,10 @@ namespace DotnetCoreWithEF.Models
         [Required(ErrorMessage ="Please choose language")]
         public string Language { get; set; }
 
+        //added additional property for multi language
+        [Required(ErrorMessage = "Please choose languages")]
+        public List<string> MultiLanguages { get; set; }
+
         [Display(Name ="Total pages of Book")]
         [Required(ErrorMessage = "Please enter total pages")]
         public int TotalPages { get; set; }
