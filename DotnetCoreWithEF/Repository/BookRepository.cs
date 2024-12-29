@@ -29,6 +29,7 @@ namespace DotnetCoreWithEF.Repository
         public List<BookModel> GetAllBooks()
         {
             //var books = new List<BookModel>();
+            //sdfasd
             var data = _dbContext.Books.Select(book => new BookModel
             {
                 Id = book.Id,
