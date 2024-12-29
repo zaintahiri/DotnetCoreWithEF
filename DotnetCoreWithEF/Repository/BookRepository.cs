@@ -19,7 +19,8 @@ namespace DotnetCoreWithEF.Repository
                 Description = book.Description,
                 TotalPages = book.TotalPages,
                 CreatedOn = DateTime.UtcNow,
-                UpdatedOn = DateTime.UtcNow
+                UpdatedOn = DateTime.UtcNow,
+                Language= book.Language
             };
             await _dbContext.Books.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
@@ -54,7 +55,8 @@ namespace DotnetCoreWithEF.Repository
                 Titile=book.Titile,
                 Author=book.Author, 
                 Description=book.Description,   
-                TotalPages = book.TotalPages
+                TotalPages = book.TotalPages,
+                Language=book.Language
             };
 
         }
