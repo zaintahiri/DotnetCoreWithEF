@@ -20,7 +20,7 @@ namespace DotnetCoreWithEF.Repository
                 TotalPages = book.TotalPages,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
-                Language= book.Language
+                LanguageId = book.LanguageId
             };
             await _dbContext.Books.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
@@ -28,36 +28,33 @@ namespace DotnetCoreWithEF.Repository
         }
         public List<BookModel> GetAllBooks()
         {
-            var books = new List<BookModel>();
-            var data = _dbContext.Books.ToList();
-            if (data?.Any() == true)
+            //var books = new List<BookModel>();
+            var data = _dbContext.Books.Select(book => new BookModel
             {
-                foreach (var record in data)
-                {
-                    books.Add(new BookModel 
-                    {
-                        Id=record.Id,
-                        Titile=record.Titile,
-                        Author = record.Author,
-                        Description = record.Description,
-                        TotalPages = record.TotalPages
-                    });
-                }
-            }
-            return books;
+                Id = book.Id,
+                Titile = book.Titile,
+                Author = book.Author,
+                Description = book.Description,
+                TotalPages = book.TotalPages,
+                LanguageId = book.LanguageId,
+                Language = book.Language.Name
+            }).ToList();
+           
+            return data;
         }
         public BookModel GetBook(int id)
         {
-            var book= _dbContext.Books.Where(x=>x.Id==id).FirstOrDefault();
-            return new BookModel
+            var book= _dbContext.Books.Where(x=>x.Id==id).Select(book=> new BookModel
             {
                 Id = book.Id,
-                Titile=book.Titile,
-                Author=book.Author, 
-                Description=book.Description,   
+                Titile = book.Titile,
+                Author = book.Author,
+                Description = book.Description,
                 TotalPages = book.TotalPages,
-                Language=book.Language
-            };
+                LanguageId = book.LanguageId,
+                Language = book.Language.Name
+            }).FirstOrDefault();
+            return  book;
 
         }
 

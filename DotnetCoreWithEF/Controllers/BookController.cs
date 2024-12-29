@@ -8,9 +8,11 @@ namespace DotnetCoreWithEF.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _repository;
-        public BookController(IBookRepository repository)
+        private readonly ILanguageRepository _languageRepo;
+        public BookController(IBookRepository repository,ILanguageRepository languageRepo)
         {
             _repository = repository;
+            _languageRepo = languageRepo;
         }
 
        
@@ -61,20 +63,23 @@ namespace DotnetCoreWithEF.Controllers
             //};
 
             //4-way
-            var group1 = new SelectListGroup { Name="Group-1"};
-            var group2 = new SelectListGroup { Name = "Group-2",Disabled=true};
-            var group3 = new SelectListGroup { Name = "Group-3" };
-            ViewBag.Lanuages = new List<SelectListItem>()
-            {
-                new SelectListItem(){ Text="English",Value="1",Group=group1},
-                new SelectListItem(){ Text="Urdu",Value="2",Group=group2},
-                new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
-                new SelectListItem(){ Text="Siraiki",Value="4",Group=group2},
-                new SelectListItem(){ Text="Balouchi",Value="5",Group=group2},
-                new SelectListItem(){ Text="Punjabi",Value="6",Group=group3},
-                new SelectListItem(){ Text="Pashto",Value="7",Group=group3},
-                new SelectListItem(){ Text="Kashmiri",Value="8",Group=group3},
-            };
+            //var group1 = new SelectListGroup { Name="Group-1"};
+            //var group2 = new SelectListGroup { Name = "Group-2",Disabled=true};
+            //var group3 = new SelectListGroup { Name = "Group-3" };
+            //ViewBag.Lanuages = new List<SelectListItem>()
+            //{
+            //    new SelectListItem(){ Text="English",Value="1",Group=group1},
+            //    new SelectListItem(){ Text="Urdu",Value="2",Group=group2},
+            //    new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
+            //    new SelectListItem(){ Text="Siraiki",Value="4",Group=group2},
+            //    new SelectListItem(){ Text="Balouchi",Value="5",Group=group2},
+            //    new SelectListItem(){ Text="Punjabi",Value="6",Group=group3},
+            //    new SelectListItem(){ Text="Pashto",Value="7",Group=group3},
+            //    new SelectListItem(){ Text="Kashmiri",Value="8",Group=group3},
+            //};
+
+            var languages = new SelectList(_languageRepo.GetAllLanguages() as IEnumerable<LanguageModel>, "Id", "Language");
+            ViewBag.Lanuages = languages;
             return View(model);
         }
 
@@ -105,20 +110,23 @@ namespace DotnetCoreWithEF.Controllers
             //    new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true},
             //};
 
-            var group1 = new SelectListGroup { Name = "Group-1" };
-            var group2 = new SelectListGroup { Name = "Group-2" };
-            var group3 = new SelectListGroup { Name = "Group-3" };
-            ViewBag.Lanuages = new List<SelectListItem>()
-            {
-                new SelectListItem(){ Text="English",Value="1",Group=group1},
-                new SelectListItem(){ Text="Urdu",Value="2",Disabled=true,Group=group2},
-                new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
-                new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true,Group=group2},
-                new SelectListItem(){ Text="Balouchi",Value="5",Selected=true,Group=group2},
-                new SelectListItem(){ Text="Punjabi",Value="6",Disabled=true,Group=group3},
-                new SelectListItem(){ Text="Pashto",Value="7",Selected=true,Group=group3},
-                new SelectListItem(){ Text="Kashmiri",Value="8",Disabled=true,Group=group3},
-            };
+            //var group1 = new SelectListGroup { Name = "Group-1" };
+            //var group2 = new SelectListGroup { Name = "Group-2" };
+            //var group3 = new SelectListGroup { Name = "Group-3" };
+            //ViewBag.Lanuages = new List<SelectListItem>()
+            //{
+            //    new SelectListItem(){ Text="English",Value="1",Group=group1},
+            //    new SelectListItem(){ Text="Urdu",Value="2",Disabled=true,Group=group2},
+            //    new SelectListItem(){ Text="Sindhi",Value="3",Selected=true,Group=group2},
+            //    new SelectListItem(){ Text="Siraiki",Value="4",Disabled=true,Group=group2},
+            //    new SelectListItem(){ Text="Balouchi",Value="5",Selected=true,Group=group2},
+            //    new SelectListItem(){ Text="Punjabi",Value="6",Disabled=true,Group=group3},
+            //    new SelectListItem(){ Text="Pashto",Value="7",Selected=true,Group=group3},
+            //    new SelectListItem(){ Text="Kashmiri",Value="8",Disabled=true,Group=group3},
+            //};
+
+            var languages =new SelectList(_languageRepo.GetAllLanguages() as IEnumerable<LanguageModel>,"Id", "Language");
+            ViewBag.Lanuages = languages;
             return View();
         }
 

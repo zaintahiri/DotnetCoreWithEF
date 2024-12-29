@@ -1,4 +1,5 @@
-﻿@model BookModel;
+﻿@using DotnetCoreWithEF.Enums
+@model BookModel;
 
 <form method="post" asp-controller="book" asp-action="addbook">
     @section title {
@@ -18,7 +19,7 @@
     }
 
     <div class="form-group  pb-3">
-        <label asp-for="Language" class="form-label col-md-2"></label>
+        <label asp-for="LanguageId" class="form-label col-md-2"></label>
         @* <select class="form-control col-md-5 dropdown" asp-for="Language">
             <option value="">Select language</option> 
             <option>Urdu</option>
@@ -38,12 +39,28 @@
             
 
         @* here is for Multi selection*@
-        <select class="form-control col-md-5" asp-for="MultiLanguages"
+        @* <select class="form-control col-md-5" asp-for="MultiLanguages"
                 asp-items="@ViewBag.Lanuages" multiple>
             <option value="">Choose Languages</option>
+        </select> *@
+
+        @*Dropdown by enum*@
+        @* <select class="form-control col-md-5" asp-for="LanguageEnum"
+                asp-items="Html.GetEnumSelectList<LanguagesEnum>()">
+            <option value="">Choose Languages</option>
+        </select> *@
+
+       @*  <select class="form-control col-md-5" asp-for="LanguageId"
+                asp-items="Html.GetEnumSelectList<LanguagesEnum>()">
+            <option value="">Choose Languages</option>
+        </select> *@
+
+        <select class="form-control col-md-5" asp-for="LanguageId"
+                asp-items="@ViewBag.Lanuages">
+            <option value="">Choose Language</option>
         </select>
 
-        <span class="col-md-4 text-danger" asp-validation-for="MultiLanguages"></span>
+        <span class="col-md-4 text-danger" asp-validation-for="LanguageId"></span>
     </div>
     
     <div class="form-group  pb-3">

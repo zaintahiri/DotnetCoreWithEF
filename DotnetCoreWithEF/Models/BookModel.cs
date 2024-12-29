@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DotnetCoreWithEF.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DotnetCoreWithEF.Models
 {
@@ -16,12 +17,19 @@ namespace DotnetCoreWithEF.Models
         public string Description { get; set; }
         public string? Category { get; set; }
 
-        [Required(ErrorMessage ="Please choose language")]
-        public string Language { get; set; }
+        [Required(ErrorMessage = "Please choose language")]
+        //public string Language { get; set; }
+        //public int Language { get; set; }
+        public int LanguageId { get; set; }
+        public string? Language { get; set; }
+
 
         //added additional property for multi language
+        //[Required(ErrorMessage = "Please choose languages")]
+        //public List<string> MultiLanguages { get; set; }
+
         [Required(ErrorMessage = "Please choose languages")]
-        public List<string> MultiLanguages { get; set; }
+        public LanguagesEnum LanguageEnum { get; set; }
 
         [Display(Name ="Total pages of Book")]
         [Required(ErrorMessage = "Please enter total pages")]

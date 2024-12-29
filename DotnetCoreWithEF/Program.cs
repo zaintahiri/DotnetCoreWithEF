@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BookStoreDBContext>(option =>
                         option.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;Integrated Security=True;"));
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
