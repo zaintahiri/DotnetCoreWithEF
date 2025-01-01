@@ -9,10 +9,12 @@ namespace DotnetCoreWithEF.Controllers
     {
         private readonly IBookRepository _repository;
         private readonly ILanguageRepository _languageRepo;
-        public BookController(IBookRepository repository,ILanguageRepository languageRepo)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public BookController(IBookRepository repository,IWebHostEnvironment hostEnvironment,ILanguageRepository languageRepo)
         {
             _repository = repository;
             _languageRepo = languageRepo;
+            _webHostEnvironment = hostEnvironment;
         }
 
        
@@ -88,6 +90,15 @@ namespace DotnetCoreWithEF.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (book.CoverPhoto != null)
+                {
+                    var folder = "photos/cover/";
+                    folder = folder+""+ Guid.NewGuid().ToString() + "_"+book.CoverPhoto.FileName;
+                    book.CoverPhotoUrl="/"+folder;
+                    var serverFolder=Path.Combine(_webHostEnvironment.WebRootPath,folder);
+                    await book.CoverPhoto.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                   
+                }
                 int id = await _repository.AddBook(book);
                 if (id > 0)
                 {

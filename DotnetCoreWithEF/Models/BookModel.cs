@@ -34,5 +34,12 @@ namespace DotnetCoreWithEF.Models
         [Display(Name ="Total pages of Book")]
         [Required(ErrorMessage = "Please enter total pages")]
         public int TotalPages { get; set; }
+
+        [Display(Name ="Please select cover photo")]
+        [Required]
+        public IFormFile CoverPhoto{ get; set; }
+
+        public string? CoverPhotoUrl { get; set; }
+
     }
 }

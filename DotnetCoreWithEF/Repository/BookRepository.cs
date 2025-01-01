@@ -20,7 +20,8 @@ namespace DotnetCoreWithEF.Repository
                 TotalPages = book.TotalPages,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
-                LanguageId = book.LanguageId
+                LanguageId = book.LanguageId,
+                CoverPhotoUrl=book.CoverPhotoUrl
             };
             await _dbContext.Books.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
@@ -38,7 +39,8 @@ namespace DotnetCoreWithEF.Repository
                 Description = book.Description,
                 TotalPages = book.TotalPages,
                 LanguageId = book.LanguageId,
-                Language = book.Language.Name
+                Language = book.Language.Name,
+                CoverPhotoUrl = book.CoverPhotoUrl  
             }).ToList();
            
             return data;
@@ -53,7 +55,8 @@ namespace DotnetCoreWithEF.Repository
                 Description = book.Description,
                 TotalPages = book.TotalPages,
                 LanguageId = book.LanguageId,
-                Language = book.Language.Name
+                Language = book.Language.Name,
+                CoverPhotoUrl = book.CoverPhotoUrl
             }).FirstOrDefault();
             return  book;
 

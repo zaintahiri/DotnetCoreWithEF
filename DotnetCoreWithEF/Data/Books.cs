@@ -15,5 +15,6 @@
         public DateTime? UpdatedOn { get; set; }
 
         public Languages Language { get; set; }
+        public string? CoverPhotoUrl { get; set; }
     }
 }
