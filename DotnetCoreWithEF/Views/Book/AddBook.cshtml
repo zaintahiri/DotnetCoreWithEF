@@ -1,7 +1,13 @@
 ﻿@using DotnetCoreWithEF.Enums
 @model BookModel;
 
-<form method="post" asp-controller="book" asp-action="addbook">
+<div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<form method="post" data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess"
+      data-ajax-failure="myFailure" data-ajax-loading="#myLoader" asp-controller="book" asp-action="addbook">
     @section title {
         <big class="text-primary">Add Book</big>
         <p big="">here you can add elements</p>
@@ -100,3 +106,20 @@
    
    
 </form>
+@section scripts {
+    <script>
+        // alert("hi zain");
+        function myComplete(data){
+        
+            alert("Completed");
+        }
+        function mySuccess(data){
+        
+            alert("Success");
+        }
+        function myFailure(data){
+
+            // alert("Failure");
+        }
+    </script>
+}
