@@ -104,7 +104,7 @@ namespace DotnetCoreWithEF.Repository
 
         }
 
-        public List<BookModel> GetTopBooks()
+        public List<BookModel> GetTopBooks(int count)
         {
             var data = _dbContext.Books.Select(book => new BookModel
             {
@@ -117,7 +117,7 @@ namespace DotnetCoreWithEF.Repository
                 Language = book.Language.Name,
                 CoverPhotoUrl = book.CoverPhotoUrl,
                 BookPdfURL = book.BookPdfURL
-            }).Take(5).ToList();
+            }).Take(count).ToList();
 
             return data;
         }

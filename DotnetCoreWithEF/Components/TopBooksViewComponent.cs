@@ -11,9 +11,9 @@ namespace DotnetCoreWithEF.Components
         {
             _repository = bookRepository;            
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int count)
         {
-            var books=_repository.GetTopBooks();
+            var books=_repository.GetTopBooks(count);
             return View(books);
         }
     }

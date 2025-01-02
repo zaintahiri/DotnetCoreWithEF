@@ -28,7 +28,8 @@
            @*  <partial name="_bookthumbnail" model="new BookModel()" />
             <partial name="_bookthumbnail" model="new BookModel()"/>
             <partial name="_bookthumbnail" model="new BookModel()" /> *@
-            @await Component.InvokeAsync("TopBooks");
+            @* @await Component.InvokeAsync("TopBooks",new {Count=8}); *@
+            <vc:top-books count="9"></vc:top-books>
         </div>
 
     </div>
