@@ -16,5 +16,7 @@
 
         public Languages Language { get; set; }
         public string? CoverPhotoUrl { get; set; }
+        public ICollection<BookGallery> BookGallery{ get; set; }
+        public string? BookPdfURL { get; set; }
     }
 }

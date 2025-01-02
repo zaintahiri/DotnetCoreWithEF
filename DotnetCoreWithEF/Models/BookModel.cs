@@ -38,8 +38,18 @@ namespace DotnetCoreWithEF.Models
         [Display(Name ="Please select cover photo")]
         [Required]
         public IFormFile CoverPhoto{ get; set; }
-
         public string? CoverPhotoUrl { get; set; }
+
+        [Display(Name = "Please select gallery photos")]
+        [Required]
+        public IFormFileCollection GalleryPhotos { get; set; }      
+
+        public List<GalleryModel>? GalleryModels { get; set; }
+
+        [Display(Name = "Please select PDF")]
+        [Required]
+        public IFormFile BookPdf { get; set; }
+        public string? BookPdfURL { get; set; }
 
     }
 }

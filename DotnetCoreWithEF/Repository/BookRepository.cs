@@ -21,8 +21,19 @@ namespace DotnetCoreWithEF.Repository
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 LanguageId = book.LanguageId,
-                CoverPhotoUrl=book.CoverPhotoUrl
+                CoverPhotoUrl=book.CoverPhotoUrl,
+                BookPdfURL=book.BookPdfURL
             };
+
+            newBook.BookGallery=new List<BookGallery>();
+            foreach (var gallery in book.GalleryModels)
+            {
+                newBook.BookGallery.Add(new BookGallery()
+                {
+                    Name= gallery.Name,
+                    URL= gallery.URL
+                });
+            }
             await _dbContext.Books.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
             return newBook.Id;
@@ -40,7 +51,8 @@ namespace DotnetCoreWithEF.Repository
                 TotalPages = book.TotalPages,
                 LanguageId = book.LanguageId,
                 Language = book.Language.Name,
-                CoverPhotoUrl = book.CoverPhotoUrl  
+                CoverPhotoUrl = book.CoverPhotoUrl,
+                BookPdfURL=book.BookPdfURL
             }).ToList();
            
             return data;
@@ -56,7 +68,14 @@ namespace DotnetCoreWithEF.Repository
                 TotalPages = book.TotalPages,
                 LanguageId = book.LanguageId,
                 Language = book.Language.Name,
-                CoverPhotoUrl = book.CoverPhotoUrl
+                CoverPhotoUrl = book.CoverPhotoUrl,
+                GalleryModels = book.BookGallery.Select(x => new GalleryModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    URL = x.URL
+                }).ToList(),
+                BookPdfURL=book.BookPdfURL
             }).FirstOrDefault();
             return  book;
 

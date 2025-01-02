@@ -2,6 +2,7 @@
 using DotnetCoreWithEF.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace DotnetCoreWithEF.Controllers
 {
@@ -93,12 +94,33 @@ namespace DotnetCoreWithEF.Controllers
                 if (book.CoverPhoto != null)
                 {
                     var folder = "photos/cover/";
-                    folder = folder+""+ Guid.NewGuid().ToString() + "_"+book.CoverPhoto.FileName;
-                    book.CoverPhotoUrl="/"+folder;
-                    var serverFolder=Path.Combine(_webHostEnvironment.WebRootPath,folder);
-                    await book.CoverPhoto.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-                   
+                    book.CoverPhotoUrl = await FileUrl(book.CoverPhoto, folder);
+                    
                 }
+
+                if (book.GalleryPhotos != null)
+                {
+                    var folder = "photos/gallary/";
+                    book.GalleryModels=new List<GalleryModel>();
+                    foreach (var photo in book.GalleryPhotos)
+                    {
+                        book.GalleryModels.Add(new GalleryModel()
+                        {
+                            Name=photo.FileName,
+                            URL= await FileUrl(photo, folder)
+
+                        });
+                    }
+                    
+                }
+
+                if (book.BookPdf != null)
+                {
+                    var folder = "photos/pdf/";
+                    book.BookPdfURL = await FileUrl(book.BookPdf, folder);
+
+                }
+
                 int id = await _repository.AddBook(book);
                 if (id > 0)
                 {
@@ -139,6 +161,14 @@ namespace DotnetCoreWithEF.Controllers
             var languages =new SelectList(_languageRepo.GetAllLanguages() as IEnumerable<LanguageModel>,"Id", "Language");
             ViewBag.Lanuages = languages;
             return View();
+        }
+
+        private async Task<string> FileUrl(IFormFile file, string folder)
+        {
+            folder = folder + "" + Guid.NewGuid().ToString() + "_" + file.FileName;
+            var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            return "/"+folder;
         }
 
         private List<LanguageModel> GetLanguages()
