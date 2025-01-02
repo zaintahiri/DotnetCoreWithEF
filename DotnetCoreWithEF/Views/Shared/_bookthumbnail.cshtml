@@ -1,0 +1,13 @@
+﻿@model BookModel;
+<div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+        <img src='@(string.IsNullOrEmpty(Model.CoverPhotoUrl)?"/photos/noimage.png":Model.CoverPhotoUrl)' class="img-thumbnail" style="width:100%;height:250px" />
+        @* <svg class ="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"/> *@
+        <div class="card-body">
+            <h5 class="card-title">@(string.IsNullOrEmpty(Model.Titile) ? "No Title is available" : Model.Titile)</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@(string.IsNullOrEmpty(Model.Titile) ? "No Author is available" : Model.Author)</h6>
+            <p class="card-text">@(string.IsNullOrEmpty(Model.Titile) ? "No Description is available" : Model.Description)</p>
+            <a asp-controller="book" asp-action="bookdetails" asp-route-id="@Model.Id" class="btn btn-primary">More Details</a>
+        </div>
+    </div>
+</div>
