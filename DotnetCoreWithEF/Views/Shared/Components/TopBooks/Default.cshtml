@@ -1,1 +1,5 @@
-﻿<h3 class="text-center text-success">Welcome to Component</h3>
+﻿@model IEnumerable<BookModel>
+@foreach (var record in Model)
+{
+    <partial name="_bookthumbnail" model="record" />
+}

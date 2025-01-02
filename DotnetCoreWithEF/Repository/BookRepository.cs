@@ -103,5 +103,23 @@ namespace DotnetCoreWithEF.Repository
             };
 
         }
+
+        public List<BookModel> GetTopBooks()
+        {
+            var data = _dbContext.Books.Select(book => new BookModel
+            {
+                Id = book.Id,
+                Titile = book.Titile,
+                Author = book.Author,
+                Description = book.Description,
+                TotalPages = book.TotalPages,
+                LanguageId = book.LanguageId,
+                Language = book.Language.Name,
+                CoverPhotoUrl = book.CoverPhotoUrl,
+                BookPdfURL = book.BookPdfURL
+            }).Take(5).ToList();
+
+            return data;
+        }
     }
 }

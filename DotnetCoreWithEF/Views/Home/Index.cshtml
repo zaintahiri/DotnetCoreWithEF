@@ -3,7 +3,7 @@
         <h1 class="text-center">Welcome To Book Store</h1>
         @* @await Component.InvokeAsync("TopBooks"); *@
         @* here is another way to call view component *@
-        <vc:top-books></vc:top-books>
+       @*  <vc:top-books></vc:top-books> *@
 }
 <section class="text-default text-center">
     <div class="container">
@@ -25,9 +25,10 @@
     <div class="container">
         <h3 class="text-center">Top Books</h3>
         <div class="row">
-            <partial name="_bookthumbnail" model="new BookModel()" />
+           @*  <partial name="_bookthumbnail" model="new BookModel()" />
             <partial name="_bookthumbnail" model="new BookModel()"/>
-            <partial name="_bookthumbnail" model="new BookModel()" />
+            <partial name="_bookthumbnail" model="new BookModel()" /> *@
+            @await Component.InvokeAsync("TopBooks");
         </div>
 
     </div>

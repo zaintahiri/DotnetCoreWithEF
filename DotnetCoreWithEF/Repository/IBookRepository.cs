@@ -5,7 +5,8 @@ namespace DotnetCoreWithEF.Repository
     public interface IBookRepository
     {
             List<BookModel> GetAllBooks();
-            public BookModel GetBook(int id);
+            List<BookModel> GetTopBooks();
+        public BookModel GetBook(int id);
 
             public List<BookModel> SearchBooks(string bookTitle, string bookAuthor);
 
