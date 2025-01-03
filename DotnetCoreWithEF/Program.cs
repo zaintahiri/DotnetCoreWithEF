@@ -9,12 +9,20 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 //builder.Services.AddDbContext<BookStoreDBContext>(option =>
 //                        option.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;Integrated Security=True;"));
 
+// there are different ways to read the appSettings file 
+
+//1 way
 //IConfiguration _iConfig = builder.Configuration;
 //var connection = _iConfig["ConnectionStrings:DefaultConnection"];
 
-var connection = builder.Configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
-builder.Services.AddDbContext<BookStoreDBContext>(option =>
-                        option.UseSqlServer("" + connection));
+//2 way
+//var connection = builder.Configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
+
+//3 way
+var appSettingsSection = builder.Configuration.GetSection("ConnectionStrings");
+var connection = appSettingsSection.GetValue<string>("DefaultConnection");
+builder.Services.AddDbContext<BookStoreDBContext>(option =>option.UseSqlServer("" + connection));
+
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddAuthentication();
