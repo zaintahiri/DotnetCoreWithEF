@@ -1,4 +1,5 @@
 using DotnetCoreWithEF.Data;
+using DotnetCoreWithEF.Models;
 using DotnetCoreWithEF.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,9 @@ builder.Services.AddDbContext<BookStoreDBContext>(option =>option.UseSqlServer("
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
+
+builder.Services.Configure<NewBookAlertConfig>(builder.Configuration.GetSection("NewBookAlert"));
+
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();

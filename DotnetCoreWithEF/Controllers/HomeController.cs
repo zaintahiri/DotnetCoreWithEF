@@ -1,16 +1,26 @@
 ﻿using DotnetCoreWithEF.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DotnetCoreWithEF.Controllers
 {
     public class HomeController : Controller
     {
 
-        private readonly IConfiguration _configuration;
-        public HomeController(IConfiguration configuration)
+        //private readonly IConfiguration _configuration;
+        //public HomeController(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;          
+        //}
+
+        // how to read values from configuration using IOption class, this will map the values to NewBookAlertConfig object
+        private readonly NewBookAlertConfig _newBookAlertConfiguration;
+        public HomeController(IOptions<NewBookAlertConfig> newBookAlertConfiguration)
         {
-            _configuration = configuration;          
+            _newBookAlertConfiguration = newBookAlertConfiguration.Value;
         }
+
+
         //[Route("Home")]
         //[Route("/")]
         public ActionResult Index()
@@ -23,11 +33,12 @@ namespace DotnetCoreWithEF.Controllers
             //    ContentType="text/html"
             //};
 
-            var newBookAler = new NewBookAlertConfig();
-            _configuration.Bind("NewBookAlert", newBookAler);
+            //var newBookAler = new NewBookAlertConfig();
+            //_configuration.Bind("NewBookAlert", newBookAler);
 
-            bool isDisplay = newBookAler.DisplayNewBookAlert;
+            //bool isDisplay = newBookAler.DisplayNewBookAlert;
 
+            bool isDisplay = _newBookAlertConfiguration.DisplayNewBookAlert;
             return View();
 
         }
