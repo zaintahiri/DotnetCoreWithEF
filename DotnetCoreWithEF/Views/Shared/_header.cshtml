@@ -1,11 +1,20 @@
 ﻿@using DotnetCoreWithEF.Repository
+@using Microsoft.Extensions.Options
 @inject IBookRepository _repo;
 @inject IConfiguration _config;
 
-@{
+@* IOption method to bind appsetting values to a model class as below, dependency injection is used *@
+@inject IOptions<NewBookAlertConfig> _configNewBookAlert;
 
-    var newBookConfig = new NewBookAlertConfig();
-    _config.Bind("NewBookAlert", newBookConfig);
+@* @{ *@
+
+@*     var newBookConfig = new NewBookAlertConfig(); *@
+@*     _config.Bind("NewBookAlert", newBookConfig); *@
+@* } *@
+
+@* IOption method *@
+@{
+    var newBookAlert = _configNewBookAlert.Value;
 }
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -61,10 +70,18 @@
     }
     *@
 
-    @if (newBookConfig.DisplayNewBookAlert)
+    @* @if (newBookConfig.DisplayNewBookAlert) *@
+    @* { *@
+    @*     <div class="alert alert-info" role="alert"> *@
+    @*         @newBookConfig.BookName *@
+    @*     </div> *@
+    @* } *@
+
+    @* using IOption method *@
+    @if (newBookAlert.DisplayNewBookAlert)
     {
         <div class="alert alert-info" role="alert">
-            @newBookConfig.BookName
+            @newBookAlert.BookName
         </div>
     }
 
