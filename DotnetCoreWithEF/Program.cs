@@ -8,8 +8,11 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 //// add controllers will add all controllers in the project
 //builder.Services.AddDbContext<BookStoreDBContext>(option =>
 //                        option.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;Integrated Security=True;"));
-IConfiguration _iConfig = builder.Configuration;
-var connection = _iConfig["ConnectionStrings:DefaultConnection"];
+
+//IConfiguration _iConfig = builder.Configuration;
+//var connection = _iConfig["ConnectionStrings:DefaultConnection"];
+
+var connection = builder.Configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
 builder.Services.AddDbContext<BookStoreDBContext>(option =>
                         option.UseSqlServer("" + connection));
 builder.Services.AddScoped<IBookRepository, BookRepository>();

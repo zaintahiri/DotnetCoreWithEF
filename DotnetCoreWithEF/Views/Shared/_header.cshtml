@@ -40,4 +40,11 @@
         </div>
     </nav>
 
+    @if(_config.GetValue<bool>("IsAllowAlert"))
+    {
+        <div class="alert alert-info" role="alert">
+            @(_config.GetValue<string>("Alert"))
+        </div>
+    }
+   
 </header>
