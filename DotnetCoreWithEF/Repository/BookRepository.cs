@@ -1,5 +1,6 @@
 ﻿using DotnetCoreWithEF.Data;
 using DotnetCoreWithEF.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace DotnetCoreWithEF.Repository
 {
@@ -14,6 +15,7 @@ namespace DotnetCoreWithEF.Repository
         }
         public async Task<int> AddBook(BookModel book)
         {
+           
             var newBook = new Books
             {
                 Titile = book.Titile,

@@ -1,6 +1,12 @@
 ﻿@using DotnetCoreWithEF.Repository
 @inject IBookRepository _repo;
 @inject IConfiguration _config;
+
+@{
+
+    var newBookConfig = new NewBookAlertConfig();
+    _config.Bind("NewBookAlert", newBookConfig);
+}
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -40,11 +46,26 @@
         </div>
     </nav>
 
-    @if(_config.GetValue<bool>("IsAllowAlert"))
+    @* @if(_config.GetValue<bool>("IsAllowAlert")) *@
+    @* { *@
+    @*     <div class="alert alert-info" role="alert"> *@
+    @*         @(_config.GetValue<string>("Alert")) *@
+    @*     </div> *@
+    @* } *@
+
+   @*  @if (_config.GetValue<bool>("NewBookAlert:DisplayNewBookAlert"))
     {
         <div class="alert alert-info" role="alert">
-            @(_config.GetValue<string>("Alert"))
+            @(_config.GetValue<string>("NewBookAlert:BookName"))
         </div>
     }
-   
+    *@
+
+    @if (newBookConfig.DisplayNewBookAlert)
+    {
+        <div class="alert alert-info" role="alert">
+            @newBookConfig.BookName
+        </div>
+    }
+
 </header>

@@ -5,6 +5,12 @@ namespace DotnetCoreWithEF.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IConfiguration _configuration;
+        public HomeController(IConfiguration configuration)
+        {
+            _configuration = configuration;          
+        }
         //[Route("Home")]
         //[Route("/")]
         public ActionResult Index()
@@ -16,6 +22,11 @@ namespace DotnetCoreWithEF.Controllers
             //    Content="<h1>Welcome to Asp.net core MVC</h1>",
             //    ContentType="text/html"
             //};
+
+            var newBookAler = new NewBookAlertConfig();
+            _configuration.Bind("NewBookAlert", newBookAler);
+
+            bool isDisplay = newBookAler.DisplayNewBookAlert;
 
             return View();
 
