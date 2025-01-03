@@ -4,7 +4,7 @@
 @inject IConfiguration _config;
 
 @* IOption method to bind appsetting values to a model class as below, dependency injection is used *@
-@inject IOptions<NewBookAlertConfig> _configNewBookAlert;
+@* @inject IOptions<NewBookAlertConfig> _configNewBookAlert; *@
 
 @* @{ *@
 
@@ -13,9 +13,16 @@
 @* } *@
 
 @* IOption method *@
+@* @{ *@
+@*     var newBookAlert = _configNewBookAlert.Value; *@
+@* } *@
+
+@inject IOptionsSnapshot<NewBookAlertConfig> _configNewBookAlert;
 @{
-    var newBookAlert = _configNewBookAlert.Value;
+    var newBookAlert = _configNewBookAlert.Get("NewBookAlert");
+    var thirdPartyBookAlert = _configNewBookAlert.Get("ThirdPartyBook");
 }
+
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -78,10 +85,26 @@
     @* } *@
 
     @* using IOption method *@
+    @* @if (newBookAlert.DisplayNewBookAlert) *@
+    @* { *@
+    @*     <div class="alert alert-info" role="alert"> *@
+    @*         @newBookAlert.BookName *@
+    @*     </div> *@
+    @* } *@
+
+    @*IOptionSnapShot with named *@
+
     @if (newBookAlert.DisplayNewBookAlert)
     {
         <div class="alert alert-info" role="alert">
             @newBookAlert.BookName
+        </div>
+    }
+
+    @if (thirdPartyBookAlert.DisplayNewBookAlert)
+    {
+        <div class="alert alert-info" role="alert">
+            @thirdPartyBookAlert.BookName
         </div>
     }
 

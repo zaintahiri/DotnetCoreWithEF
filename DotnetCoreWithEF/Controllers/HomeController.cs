@@ -16,14 +16,20 @@ namespace DotnetCoreWithEF.Controllers
 
         // how to read values from configuration using IOption class, this will map the values to NewBookAlertConfig object
         private readonly NewBookAlertConfig _newBookAlertConfiguration;
+        private readonly NewBookAlertConfig _thirdPartybookAler;
         private readonly IMessageRepository _messageRepository;
-        public HomeController(IOptions<NewBookAlertConfig> newBookAlertConfiguration,IMessageRepository messageRepository)
+        //public HomeController(IOptions<NewBookAlertConfig> newBookAlertConfiguration,IMessageRepository messageRepository)
+        //{
+        //    _newBookAlertConfiguration = newBookAlertConfiguration.Value;
+        //    _messageRepository = messageRepository;
+        //}
+
+        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfiguration, IMessageRepository messageRepository)
         {
-            _newBookAlertConfiguration = newBookAlertConfiguration.Value;
+            _newBookAlertConfiguration = newBookAlertConfiguration.Get("NewBookAlert");
+            _thirdPartybookAler = newBookAlertConfiguration.Get("ThirdPartyBook");
             _messageRepository = messageRepository;
         }
-
-
         //[Route("Home")]
         //[Route("/")]
         public ActionResult Index()
@@ -42,6 +48,11 @@ namespace DotnetCoreWithEF.Controllers
             //bool isDisplay = newBookAler.DisplayNewBookAlert;
 
             bool isDisplay = _newBookAlertConfiguration.DisplayNewBookAlert;
+            var newBook = _newBookAlertConfiguration.BookName;
+
+
+            var bookThirdParty = _thirdPartybookAler.BookName;
+
             var bookName = _messageRepository.GetName();
             return View();
 

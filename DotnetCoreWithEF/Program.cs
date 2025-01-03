@@ -28,7 +28,8 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
-builder.Services.Configure<NewBookAlertConfig>(builder.Configuration.GetSection("NewBookAlert"));
+builder.Services.Configure<NewBookAlertConfig>("NewBookAlert", builder.Configuration.GetSection("NewBookAlert"));
+builder.Services.Configure<NewBookAlertConfig>("ThirdPartyBook", builder.Configuration.GetSection("ThirdPartyBook"));
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
