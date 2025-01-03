@@ -12,5 +12,6 @@ namespace DotnetCoreWithEF.Repository
 
             public List<BookModel> DataList();
             public Task<int> AddBook(BookModel book);
+        string GetAppName();
     }
 }

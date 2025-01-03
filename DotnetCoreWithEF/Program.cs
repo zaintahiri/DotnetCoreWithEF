@@ -3,9 +3,15 @@ using DotnetCoreWithEF.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// add controllers will add all controllers in the project
+// Load configuration from appsettings.json
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+//// add controllers will add all controllers in the project
+//builder.Services.AddDbContext<BookStoreDBContext>(option =>
+//                        option.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;Integrated Security=True;"));
+IConfiguration _iConfig = builder.Configuration;
+var connection = _iConfig["ConnectionStrings:DefaultConnection"];
 builder.Services.AddDbContext<BookStoreDBContext>(option =>
-                        option.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;Integrated Security=True;"));
+                        option.UseSqlServer("" + connection));
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddAuthentication();

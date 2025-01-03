@@ -6,9 +6,11 @@ namespace DotnetCoreWithEF.Repository
     public class BookRepository : IBookRepository
     {
         private readonly BookStoreDBContext _dbContext;
-        public BookRepository(BookStoreDBContext dbContext)
+        private readonly IConfiguration _configuration;
+        public BookRepository(BookStoreDBContext dbContext,IConfiguration configuration)
         { 
             _dbContext = dbContext;
+            _configuration = configuration; 
         }
         public async Task<int> AddBook(BookModel book)
         {
@@ -120,6 +122,11 @@ namespace DotnetCoreWithEF.Repository
             }).Take(count).ToList();
 
             return data;
+        }
+
+        public string GetAppName()
+        {
+            return _configuration["AppName"].ToString();
         }
     }
 }
