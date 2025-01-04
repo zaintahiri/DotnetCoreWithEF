@@ -1,6 +1,7 @@
 using DotnetCoreWithEF.Data;
 using DotnetCoreWithEF.Models;
 using DotnetCoreWithEF.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,9 +25,15 @@ var appSettingsSection = builder.Configuration.GetSection("ConnectionStrings");
 var connection = appSettingsSection.GetValue<string>("DefaultConnection");
 builder.Services.AddDbContext<BookStoreDBContext>(option =>option.UseSqlServer("" + connection));
 
+// Add Identity services (this is necessary for UserManager<IdentityUser>)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<BookStoreDBContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 builder.Services.Configure<NewBookAlertConfig>("NewBookAlert", builder.Configuration.GetSection("NewBookAlert"));
 builder.Services.Configure<NewBookAlertConfig>("ThirdPartyBook", builder.Configuration.GetSection("ThirdPartyBook"));
