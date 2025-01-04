@@ -26,7 +26,7 @@ var connection = appSettingsSection.GetValue<string>("DefaultConnection");
 builder.Services.AddDbContext<BookStoreDBContext>(option =>option.UseSqlServer("" + connection));
 
 // Add Identity services (this is necessary for UserManager<IdentityUser>)
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<BookStoreDBContext>()
     .AddDefaultTokenProviders();
 

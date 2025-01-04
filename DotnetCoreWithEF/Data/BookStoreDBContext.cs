@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DotnetCoreWithEF.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetCoreWithEF.Data
 {
-    public class BookStoreDBContext : IdentityDbContext
+    public class BookStoreDBContext : IdentityDbContext<ApplicationUser>
     {
         public BookStoreDBContext(DbContextOptions<BookStoreDBContext> options) : base(options)
         {
