@@ -1,5 +1,6 @@
 ﻿using DotnetCoreWithEF.Models;
 using DotnetCoreWithEF.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
@@ -37,6 +38,7 @@ namespace DotnetCoreWithEF.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult AddBook(bool isSuccess=false,int id=0)
         {
             var model = new BookModel

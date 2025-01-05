@@ -55,8 +55,11 @@
 
                 </ul>
                 <form class="d-flex" role="search">
-                    <a href="#" class="btn btn-default">Login</a>
-                    <a  asp-controller="account" asp-action="signup" class="btn btn-primary">Register</a>
+                    @* <a href="#" class="btn btn-default">Login</a> *@
+                    @* <a asp-controller="account" asp-action="signin" class="btn btn-default">Login</a> *@
+                    @* <a  asp-controller="account" asp-action="signup" class="btn btn-primary">Register</a> *@
+
+                    <partial name="_SignInInfo"/>
                 </form>
             </div>
         </div>
