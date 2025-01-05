@@ -54,13 +54,17 @@ namespace DotnetCoreWithEF.Controllers
 
         [Route("signin")]
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInModel model)
+        public async Task<IActionResult> SignIn(SignInModel model,string returnURL)
         {
             if (ModelState.IsValid)
             {
                 var result=await _accountRepository.SignIn(model);
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(returnURL))
+                    {
+                        return LocalRedirect(returnURL);
+                    }
                     return RedirectToAction("index", "home");                
                 }
                 ModelState.AddModelError("","Invalid credentials");

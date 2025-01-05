@@ -16,7 +16,8 @@
 else
 { 
    
-    <a class="btn btn-outline-primary" style="margin-right:10px;" asp-controller="account" asp-action="signin">Login</a>
+    <a class="btn btn-outline-primary" style="margin-right:10px;" 
+    asp-controller="account" asp-action="signin" asp-route-returnURL="@Context.Request.Path">Login</a>
     <a class="btn btn-primary" asp-controller="account" asp-action="signup">Register</a>
     
 }
