@@ -41,6 +41,16 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = false;
 });
 
+// if the user is not authorized and clicking any option from navbar then redirect it to login page.
+// if the authorize keyword is applied on action method of any.
+// you can set it in the appsettings file too
+
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    //config.LoginPath = "/signin";
+    config.LoginPath = builder.Configuration["Application:LoginPath"];
+});
+
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
@@ -71,5 +81,6 @@ app.MapControllerRoute(
 
 
 //app.MapGet("/", () => "Hello World!");
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
